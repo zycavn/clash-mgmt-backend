@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+   db:
+    image: registry.zyca.vn:5000/mysql-server:stg
+    container_name: db_stg
+    build:
+        dockerfile: Db_dev.Dockerfile
+        context: .
+    environment:
+        MYSQL_ROOT_PASSWORD: zyca2021
+        MYSQL_USER: zyca
+        MYSQL_PASSWORD: zyca2021
+        TZ: Asia/Ho_Chi_Minh
+    networks:
+        - inno_net
+    volumes:
+        - inno_vol_stg:/var/lib/mysql
+    restart: always
+    ports:
+        - "3306:3306"
+
+   clash_backend:
+    image: registry.zyca.vn:5000/clash_backend:stg
+    container_name: clash_backend_stg
+    build:
+        dockerfile: Backend.Dockerfile
+        context: .
+    environment:
+        ASPNETCORE_ENVIRONMENT: Staging
+        TZ: Asia/Ho_Chi_Minh
+    restart: unless-stopped
+    ports:
+        - "8081:80"
+    networks:
+        - inno_net
+    volumes:
+        - resources:/app/Resources
+        
+volumes:
+    resources:
+        external: true
+    inno_vol_stg:
+        external: true
+networks:
+    inno_net:
+        external: true

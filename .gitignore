@@ -1,0 +1,14 @@
+/ClashTools/obj
+/ClashTools/bin
+/ClashTools/.vs
+/.vs
+/packages
+/CommonUtils/obj
+/CommonUtils/bin
+/HtmlParsing/obj
+/HtmlParsing/bin
+/ClashServer/obj
+/ClashServer/bin
+/ClashServer/Resources
+/LoggerService/obj
+/LoggerService/bin
